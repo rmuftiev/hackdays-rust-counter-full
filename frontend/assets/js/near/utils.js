@@ -44,12 +44,12 @@ export async function getCounter(){
   return count;
 }
 
-export async function counterIncrement(){
-  await window.contract.increment({args:{}})
+export async function counterIncrement(x){
+  await window.contract.increment({args:{"x_str":x}})
 }
 
-export async function counterDecrement(){
-  await window.contract.decrement({args:{}})
+export async function counterDecrement(x){
+  await window.contract.decrement({args:{"x_str":x}})
 }
 
 export async function counterReset(){

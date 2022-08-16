@@ -7,34 +7,30 @@ function resetUI(){
   document.querySelector('#show').innerText = '';
 }
 
-// Animations
-document.querySelector('#c').addEventListener('click', () => {
-  document.querySelector('#left').classList.toggle('eye');
-});
-document.querySelector('#b').addEventListener('click', () => {
-  document.querySelector('#right').classList.toggle('eye');
-});
-document.querySelector('#d').addEventListener('click', () => {
-  document.querySelector('.dot').classList.toggle('on');
-});
 
 // Buttons - Interact with the Smart Contract
 document.querySelector('#plus').addEventListener('click', async () => {
+  let x = document.querySelector('#x').value;
+  console.log(x);  
   resetUI();
-  await counterIncrement();
+  await counterIncrement(x);
   await updateUI();
 });
 
 document.querySelector('#minus').addEventListener('click', async  () => {
+  let x = document.querySelector('#x').value;
+  console.log(x);  
   resetUI();
-  await counterDecrement();
+  await counterDecrement(x);
   await updateUI();
 });
+
+/*
 document.querySelector('#a').addEventListener('click', async  () => {
   resetUI();
   await counterReset();
   await updateUI();
-});
+});*/
 
 // Log in and log out users using NEAR Wallet
 document.querySelector('.sign-in .btn').onclick = login;
@@ -64,6 +60,8 @@ function signedOutFlow() {
 async function signedInFlow() {
   document.querySelector('.sign-out').style.display = 'block';
   document.querySelectorAll('.interact').forEach(button => button.disabled = false)
+  // Displaying current account name.
+  document.getElementById('account-id').innerText = window.accountId   
 }
 
 async function updateUI(){
@@ -71,17 +69,4 @@ async function updateUI(){
   
   document.querySelector('#show').classList.replace('loader','number');
   document.querySelector('#show').innerText = count === undefined ? 'calculating...' : count;
-  document.querySelector('#left').classList.toggle('eye');
-
-  if (count >= 0) {
-    document.querySelector('.mouth').classList.replace('cry','smile');
-  } else {
-    document.querySelector('.mouth').classList.replace('smile','cry');
-  }
-
-  if (count > 20 || count < -20) {
-    document.querySelector('.tongue').style.display = 'block';
-  } else {
-    document.querySelector('.tongue').style.display = 'none';
-  }
 }
